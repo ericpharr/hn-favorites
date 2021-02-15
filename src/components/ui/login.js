@@ -1,6 +1,6 @@
 export const Input = (props) => (
   <input
-      className="w-full px-2 py-2 mb-2 border border-gray-500 rounded focus:ring-indigo-100 focus:ring-4 focus:outline-none"
+    className="w-full px-2 py-2 mb-2 border border-gray-500 rounded focus:ring-indigo-100 focus:ring-4 focus:outline-none"
     {...props}
   />
 );
@@ -12,8 +12,10 @@ export const FormTitle = ({ children, ...props }) => (
 );
 
 export const FormContainer = ({ children, ...props }) => (
-    <div className="w-11/12 p-12 px-6 py-10 bg-white rounded-lg shadow-md grid place-items-center sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 sm:px-10 sm:py-6 lg:shadow-lg">
-      {children}
+    <div className="mx-2 my-20 grid place-items-center sm:my-auto">
+      <div className="w-11/12 p-12 px-6 py-10 bg-white rounded-lg shadow-md grid place-items-center sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 sm:px-10 sm:py-6 lg:shadow-lg">
+        {children}
+      </div>
     </div>
 );
 
@@ -26,10 +28,14 @@ export const Button = ({ children, ...props }) => (
   </button>
 );
 
-export const FormLabel = ({children, ...props}) => (
-    <label htmlFor={props.for} className="mt-4 mb-0 leading-none">
-        {children}
-    </label>
-)
+export const FormLabel = ({ children, ...props }) => (
+  <label htmlFor={props.for} className="mt-4 mb-0 leading-none">
+    {children}
+  </label>
+);
 
-export const ErrorSpan = ({children, ...props}) => <span className="ml-2 text-sm text-red-400"{...props}>{children}</span>
+export const ErrorSpan = ({ children, ...props }) => (
+  <span className="ml-2 text-sm text-red-400" {...props}>
+    {children}
+  </span>
+);

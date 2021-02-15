@@ -1,7 +1,15 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { FormLabel, ErrorSpan, Button, FormContainer, Input, FormTitle } from "./ui/login";
+import {
+  FormLabel,
+  ErrorSpan,
+  Button,
+  FormContainer,
+  Input,
+  FormTitle,
+} from "./ui/login";
+import { useLogin } from './login-context'
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -16,6 +24,8 @@ const SignupSchema = Yup.object().shape({
 });
 
 export function LoginForm(props) {
+  const [ state, dispatch ] = useLogin();
+
   return (
     <FormContainer>
       <FormTitle>Log In</FormTitle>
@@ -26,7 +36,7 @@ export function LoginForm(props) {
           email: "",
         }}
         validationSchema={SignupSchema}
-        onSubmit={props.onSubmit}
+        onSubmit={(data) => dispatch({type: "LOGIN", payload: data }) }
       >
         {({ errors, touched }) => (
           <Form className="px-8 w-80">
@@ -44,7 +54,12 @@ export function LoginForm(props) {
               Email
               <ErrorMessage component={ErrorSpan} name="email" />
             </FormLabel>
-            <Field as={Input} name="email" type="email" placeholder="YourEmail@email.com" />
+            <Field
+              as={Input}
+              name="email"
+              type="email"
+              placeholder="YourEmail@email.com"
+            />
             <Button type="submit">Submit</Button>
           </Form>
         )}
