@@ -13,9 +13,33 @@ const LoginDispatch = createContext();
 function loginReducer(state, action) {
   switch (action.type) {
     case "LOGIN":
-      return { loggedIn: true, user: { ...action.payload } };
+      return {
+        ...state,
+        loggedIn: true,
+        user: { ...action.payload, favorites: [] },
+      };
     case "LOGOUT":
-      return { loggedIn: false, user: {} };
+      return { ...state, loggedIn: false, user: {} };
+    case "FAVORITE":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          favorites: [...state.user.favorites, action.payload],
+        },
+      };
+    case "UNFAVORITE":
+      const itemIndex = state.user.favorites.indexOf(action.payload);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          favorites: [
+            ...state.user.favorites.slice(0, itemIndex),
+            ...state.user.favorites.slice(itemIndex + 1),
+          ],
+        },
+      };
     default:
       throw new Error("something went wrong");
   }
@@ -24,25 +48,27 @@ function loginReducer(state, action) {
 export const LoginProvider = ({ children }) => {
   const [isLoaded, setLoaded] = useState(false);
   const [state, dispatch] = useReducer(loginReducer, {
-    loggedIn: false,
-    user: {},
+    loggedIn: sessionStorage.getItem("user") !== null,
+    user: JSON.parse(sessionStorage.getItem("user")) || {},
   });
 
   useEffect(() => {
-    if (!state.loggedIn && sessionStorage.getItem("user")) {
-      dispatch({
-        type: "LOGIN",
-        payload: JSON.parse(sessionStorage.getItem("user")),
-      });
-    }
-
     if (state.loggedIn && !sessionStorage.getItem("user")) {
       sessionStorage.setItem("user", JSON.stringify(state.user));
     }
+
+    if (!state.loggedIn && sessionStorage.getItem("user")) {
+      sessionStorage.clear();
+    }
+
     if (!isLoaded) {
       setLoaded(true);
     }
   }, [state]);
+
+  useEffect(() => {
+    sessionStorage.setItem("user", JSON.stringify(state.user));
+  }, [state.user.favorites]);
 
   return (
     <LoginContext.Provider value={state.user}>
