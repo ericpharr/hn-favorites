@@ -8,7 +8,7 @@ export const FeedContainer = ({ children, ...props }) => {
 
 export const ItemsContainer = ({ children, ...props }) => {
   return (
-    <div className="bg-white border border-t-0 border-gray-800 rounded rounded-t-none">
+    <div className="overflow-hidden bg-white border border-t-0 border-gray-500 rounded rounded-t-none">
       {children}
     </div>
   );
@@ -32,7 +32,7 @@ export const Item = (props) => {
 
 export const Tabs = ({ children, ...props }) => {
   return (
-      <ul className="flex justify-between overflow-hidden bg-transparent border border-b-0 border-gray-800 rounded rounded-b-none">
+      <ul className="flex justify-between overflow-hidden bg-transparent border border-b-0 border-gray-500 rounded rounded-b-none">
       {children}
     </ul>
   );
@@ -41,11 +41,12 @@ export const Tabs = ({ children, ...props }) => {
 export const Tab = ({ children, active, ...props }) => {
   return (
     <li
-      className={`flex-grow px-2 py-1 text-center ${
+      className={`capitalize flex-grow px-2 py-1 text-center ${
         active
-          ? "bg-white font-bold border-b-0 border-r border-gray-400"
+            ? "bg-white font-bold border-b-0 border-r border-gray-400 last:border-r-0"
           : "shadow-inner shadow-xl text-gray-700 bg-indigo-50 border-b border-r border-gray-400 last:border-r-0"
       }`}
+        {...props}
     >
       {children}
     </li>
