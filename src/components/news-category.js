@@ -8,9 +8,8 @@ export const NewsCategory = (props) => {
   return (
     <>
       {status === "success"
-        ? value.slice(0,20).map((item) => <NewsItem id={item} key={item} />)
+        ? value.slice(0, 20).map((item) => <NewsItem id={item} key={item} />)
         : null}
-
     </>
   );
 };
