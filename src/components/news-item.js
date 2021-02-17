@@ -1,5 +1,5 @@
 import { useUserStore } from "./user-context";
-import { Item } from "./ui/news-feed";
+import { Item, Spinner } from "./ui/news-feed";
 import useFetch from "./use-fetch";
 
 export const NewsItem = (props) => {
@@ -14,7 +14,7 @@ export const NewsItem = (props) => {
   };
   return (
     <>
-      {status === "success" ? (
+      {status === "success" && value !== null ? (
         <Item
           title={value.title}
           by={value.by}
@@ -28,7 +28,7 @@ export const NewsItem = (props) => {
           favorite={user.favorites.includes(value.id)}
           toggleFavorite={handleChange}
         />
-      ) : null}
+      ) : <Spinner/>}
     </>
   );
 };

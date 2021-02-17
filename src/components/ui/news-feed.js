@@ -1,3 +1,5 @@
+import { ThreeDots } from 'svg-loaders-react'
+
 export const FeedContainer = ({ children, ...props }) => {
   return (
     <div className="container mx-auto mb-5 overflow-hidden bg-transparent rounded md:w-5/6 lg:w-7/12">
@@ -74,3 +76,9 @@ export const Tab = ({ children, active, ...props }) => {
     </li>
   );
 };
+
+export const Spinner = () => (
+  <div className="h-20 grid place-items-center">
+    <ThreeDots stroke="#000" height="10px"/>
+  </div>
+);

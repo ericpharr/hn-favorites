@@ -1,4 +1,5 @@
 import { NewsItem } from "./news-item";
+import {Spinner} from "./ui/news-feed";
 import useFetch from "./use-fetch";
 
 export const NewsCategory = (props) => {
@@ -9,7 +10,7 @@ export const NewsCategory = (props) => {
     <>
       {status === "success"
         ? value.slice(0, 20).map((item) => <NewsItem id={item} key={item} />)
-        : null}
+        : <Spinner/>}
     </>
   );
 };
