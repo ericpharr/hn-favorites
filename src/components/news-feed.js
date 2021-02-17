@@ -1,12 +1,21 @@
 import { useState } from "react";
-import { useLogin } from "./login-context";
+import { useUserStore } from "./user-context";
 import { NewsCategory } from "./news-category";
 import { NewsItem } from "./news-item";
-import { FeedContainer, ItemsContainer, Tab, Tabs } from "./ui/news-feed";
+import {
+  FeedContainer,
+  FeedHeader,
+  ItemsContainer,
+  Tab,
+  Tabs,
+} from "./ui/news-feed";
+import { Button } from "./ui/common";
 
 export const Feed = (props) => {
-  const [user, dispatch] = useLogin();
+  const { user } = useUserStore();
   const [state, setState] = useState("top");
+
+  const submitFavorites = props.submitFavorites;
 
   const categories = ["top", "best", "new"];
 
@@ -14,17 +23,11 @@ export const Feed = (props) => {
 
   return (
     <>
-      Hello {user.firstName} {user.lastName}
-      <a
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          return dispatch({ type: "LOGOUT" });
-        }}
-      >
-        Log Out
-      </a>
       <FeedContainer>
+        <FeedHeader greeting={`Hi ${user.firstName}`}>
+          Pick your favorite articles, and submit your favorites from the
+          favorites tab!
+        </FeedHeader>
         <Tabs>
           {categories.map((category) => (
             <Tab
@@ -48,9 +51,20 @@ export const Feed = (props) => {
           {categories.includes(state) ? (
             <NewsCategory category={state} />
           ) : (
-            user.favorites.map((favorite) => (
-              <NewsItem id={favorite} key={favorite} />
-            ))
+            <>
+              <div className="w-11/12 mx-auto md:w-1/2">
+                {user.favorites.length > 0 ? (
+                  <Button onClick={() => submitFavorites(true)}>
+                    Submit Your Favorites
+                  </Button>
+                ) : (
+                  <Button disabled>Add Favorites to Submit</Button>
+                )}
+              </div>
+              {user.favorites.map((favorite) => (
+                <NewsItem id={favorite} key={favorite} />
+              ))}
+            </>
           )}
         </ItemsContainer>
       </FeedContainer>

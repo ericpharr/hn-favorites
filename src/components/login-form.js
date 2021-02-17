@@ -4,12 +4,12 @@ import * as Yup from "yup";
 import {
   FormLabel,
   ErrorSpan,
-  Button,
   FormContainer,
   Input,
   FormTitle,
 } from "./ui/login";
-import { useLogin } from './login-context'
+import { Button } from './ui/common'
+import { useUserStore } from "./user-context";
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -24,7 +24,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 export function LoginForm(props) {
-  const [ state, dispatch ] = useLogin();
+  const { state, dispatch } = useUserStore();
 
   return (
     <FormContainer>
@@ -36,7 +36,7 @@ export function LoginForm(props) {
           email: "",
         }}
         validationSchema={SignupSchema}
-        onSubmit={(data) => dispatch({type: "LOGIN", payload: data }) }
+        onSubmit={(data) => dispatch({ type: "LOGIN", payload: data })}
       >
         {({ errors, touched }) => (
           <Form className="px-8 w-80">
