@@ -1,11 +1,11 @@
-import { useLogin } from "./login-context";
+import { useUserStore } from "./user-context";
 import { Item } from "./ui/news-feed";
 import useFetch from "./use-fetch";
 
 export const NewsItem = (props) => {
   const url = `https://hacker-news.firebaseio.com/v0/item/${props.id}.json`;
   const { status, value, error } = useFetch(url);
-  const [user, dispatch] = useLogin();
+  const {user, dispatch} = useUserStore();
 
   const handleChange = (e) => {
     return e.target.checked

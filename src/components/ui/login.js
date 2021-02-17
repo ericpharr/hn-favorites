@@ -12,11 +12,14 @@ export const FormTitle = ({ children, ...props }) => (
 );
 
 export const FormContainer = ({ children, ...props }) => (
-    <div className="mx-2 my-20 grid place-items-center sm:my-auto">
-      <div className="w-11/12 p-12 px-6 py-10 bg-white rounded-lg shadow-md grid place-items-center sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 sm:px-10 sm:py-6 lg:shadow-lg">
-        {children}
-      </div>
+  <div className="mx-2 my-20 grid place-items-center sm:my-auto">
+    <div
+      className="w-11/12 p-12 px-6 py-10 bg-white rounded-lg border border-gray-500 \
+     shadow-md grid place-items-center sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 sm:px-10 sm:py-6 lg:shadow-lg"
+    >
+      {children}
     </div>
+  </div>
 );
 
 export const Button = ({ children, ...props }) => (

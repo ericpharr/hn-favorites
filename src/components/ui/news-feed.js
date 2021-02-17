@@ -1,14 +1,21 @@
 export const FeedContainer = ({ children, ...props }) => {
   return (
-    <div className="container mx-auto mb-5 bg-white rounded shadow-lg md:w-5/6 lg:w-7/12">
+    <div className="container mx-auto mb-5 overflow-hidden bg-transparent rounded md:w-5/6 lg:w-7/12">
       {children}
     </div>
   );
 };
 
+export const FeedHeader = (props) => (
+  <div className="py-5 text-center bg-transparent rounded-t">
+    <h1 className="text-3xl">{props.greeting}</h1>
+    <p className="font-serif">{props.children}</p>
+  </div>
+);
+
 export const ItemsContainer = ({ children, ...props }) => {
   return (
-    <div className="overflow-hidden bg-white border border-t-0 border-gray-500 rounded rounded-t-none">
+    <div className="overflow-hidden bg-white border border-t-0 border-gray-500 rounded rounded-t-none shadow-lg">
       {children}
     </div>
   );

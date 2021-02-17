@@ -1,16 +1,17 @@
-import { LoginProvider } from "./components/login-context";
+import { UserProvider as UserProvider } from "./components/user-context";
 import { Feed } from "./components/news-feed";
+import { createContext, useState } from "react";
+import { Summary } from "./components/summary";
 
 function App() {
-  // Login state
+  const [submitted, setSubmitted] = useState(false);
 
   return (
     <>
-      <div className="flex flex-col min-h-screen bg-gradient-to-r from-blue-300 to-green-200 w-90">
-        {/* Return loginform or hackernews items */}
-        <LoginProvider>
-          <Feed />
-        </LoginProvider>
+      <div className="flex flex-col min-h-screen bg-gradient-to-r from-blue-200 to-green-100 w-90">
+        <UserProvider>
+          {submitted ? <Summary /> : <Feed submitFavorites={setSubmitted} />}
+        </UserProvider>
       </div>
     </>
   );
